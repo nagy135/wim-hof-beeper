@@ -2,6 +2,9 @@
 Simple python script that beeps according to Wim Hof's breathing method.
 You should absolutely read the code, it has very little lines and you need to read it to understand.
 
+Beeps might be annoying, but with `ffmpeg` you can generate your own ones.
+Script contains commented-out oneliner to do so.
+
 ## Dependencies
 * pydub
 
