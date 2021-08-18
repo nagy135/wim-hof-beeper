@@ -19,9 +19,8 @@ BEEP_LENGTH=1
 EPOCHS=3
 CYCLES=3
 
-HOLD_AFTER_EXHALE=10
-HOLD_AFTER_INHALE=5
-
+HOLD_AFTER_EXHALE=90
+HOLD_AFTER_INHALE=15
 
 # START
 
@@ -33,7 +32,10 @@ for i in range(EPOCHS):
         print('inhale')
         play(h)
         print('exhale')
-        play(c)
+        if n+1 == CYCLES:
+            play(e)
+        else:
+            play(c)
 
     # exhale and hold breath for 1.5 minute
     print('after last exale, hold for 1.5 minute (meditate)')
@@ -43,4 +45,5 @@ for i in range(EPOCHS):
     print('inhale and hold')
     play(a)
     sleep(HOLD_AFTER_INHALE-BEEP_LENGTH) # 15-1
-
+    play(c)
+    play(c)
