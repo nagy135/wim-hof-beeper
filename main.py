@@ -6,26 +6,34 @@ from time import sleep
 
 # generate sound
 # ffmpeg -f lavfi -i "sine=frequency=1027:duration=1" c.mp3 
-c = AudioSegment.from_mp3("sounds/c.mp3")
-d = AudioSegment.from_mp3("sounds/d.mp3")
-e = AudioSegment.from_mp3("sounds/e.mp3")
-f = AudioSegment.from_mp3("sounds/f.mp3")
-g = AudioSegment.from_mp3("sounds/g.mp3")
-a = AudioSegment.from_mp3("sounds/a.mp3")
-h = AudioSegment.from_mp3("sounds/h.mp3")
+c = AudioSegment.from_mp3("sounds/c6_1s.mp3")
+d = AudioSegment.from_mp3("sounds/d6_1s.mp3")
+e = AudioSegment.from_mp3("sounds/e6_1s.mp3")
+f = AudioSegment.from_mp3("sounds/f6_1s.mp3")
+g = AudioSegment.from_mp3("sounds/g6_1s.mp3")
+a = AudioSegment.from_mp3("sounds/a6_1s.mp3")
+h = AudioSegment.from_mp3("sounds/h6_1s.mp3")
+
+fast_c = AudioSegment.from_mp3("sounds/c6_05s.mp3")
+long_low_c = AudioSegment.from_mp3("sounds/c5_2s.mp3")
 
 BEEP_LENGTH=1
+LONG_BEEP_LENGTH=2
 
 EPOCHS=3
 CYCLES=3
 
-HOLD_AFTER_EXHALE=90
-HOLD_AFTER_INHALE=15
+HOLD_AFTER_EXHALE=9
+HOLD_AFTER_INHALE=5
 
 # START
 
 for i in range(EPOCHS):
     print(f'epoch: {i}')
+    
+    play(fast_c)
+    play(fast_c)
+    play(fast_c)
 
     # intense inhale/exhale
     for n in range(CYCLES):
@@ -43,7 +51,6 @@ for i in range(EPOCHS):
 
     # inhale and hold for 15 seconds (pump to head)
     print('inhale and hold')
-    play(a)
-    sleep(HOLD_AFTER_INHALE-BEEP_LENGTH) # 15-1
-    play(c)
-    play(c)
+    play(long_low_c)
+    sleep(HOLD_AFTER_INHALE-LONG_BEEP_LENGTH)
+    play(f)
