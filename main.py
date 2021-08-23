@@ -54,3 +54,4 @@ for i in range(EPOCHS):
     play(long_low_c)
     sleep(HOLD_AFTER_INHALE-LONG_BEEP_LENGTH)
     play(f)
+print('THE END')
