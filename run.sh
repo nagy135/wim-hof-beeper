@@ -45,8 +45,8 @@ play(){
     ffplay -nodisp -autoexit $file &> /dev/null
 }
 
-for (( e=1; e<=$EPOCHS; e++ ))
-do
+e=1
+while [ $e -le $EPOCHS ]; do
     echo "Epoch: $e"
 
     # START SEQUENCE
@@ -55,8 +55,8 @@ do
     play fast_c
 
     # INTENSE BREATHING CYCLES
-    for (( c=1; c<=$CYCLES; c++ ))
-    do
+    c=1
+    while [ $c -le $CYCLES ]; do
         echo "inhale"
         play h
         echo "exhale"
@@ -66,7 +66,7 @@ do
     done
 
     # LONG HOLD
-    if [[ $e -eq $EPOCHS ]]; then
+    if [ $e -eq $EPOCHS ]; then
         play meditation_ending
     else
         echo "hold"
