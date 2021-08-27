@@ -7,6 +7,7 @@ CYCLES=30
 HOLD_AFTER_EXHALE=120
 HOLD_AFTER_INHALE=15
 
+trap 'echo ...EXITING ; exit' SIGINT
 
 play(){
     # ffmpeg -f lavfi -i "sine=frequency=1027:duration=1" c.mp3
