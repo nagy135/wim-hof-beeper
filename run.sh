@@ -1,54 +1,68 @@
 #!/bin/bash
 
 # SETTINGS
-EPOCHS=4
-CYCLES=30
+EPOCHS=2
+CYCLES=3
 
-HOLD_AFTER_EXHALE=120
-HOLD_AFTER_INHALE=15
+HOLD_AFTER_EXHALE=12
+HOLD_AFTER_INHALE=5
 
 trap 'echo ...EXITING ; exit' SIGINT
 
 play(){
-    # ffmpeg -f lavfi -i "sine=frequency=1027:duration=1" c.mp3
+    frequency=261
+    duration=1
+    file=
     case $1 in
         c)
-            file=sounds/c6_1s.mp3
+            frequency=261
+            duration=1
             ;;
         d)
-            file=sounds/d6_1s.mp3
+            frequency=293
+            duration=1
             ;;
         e)
-            file=sounds/e6_1s.mp3
+            frequency=329
+            duration=1
             ;;
         f)
-            file=sounds/f6_1s.mp3
+            frequency=349
+            duration=1
             ;;
         g)
-            file=sounds/g6_1s.mp3
+            frequency=391
+            duration=1
             ;;
         a)
-            file=sounds/a6_1s.mp3
+            frequency=440
+            duration=1
             ;;
         h)
-            file=sounds/h6_1s.mp3
+            frequency=493
+            duration=1
             ;;
         fast_c)
-            file=sounds/c6_05s.mp3
+            frequency=261
+            duration=0.5
             ;;
         long_low_c)
-            file=sounds/c5_2s.mp3
+            frequency=130
+            duration=2
             ;;
         meditation_ending)
             file=sounds/meditation_ending.mp3
             ;;
     esac
-    ffplay -nodisp -autoexit $file &> /dev/null
+    [ ! -z $file ] \
+        && ffplay -nodisp -autoexit $file &> /dev/null \
+        || ffplay -f lavfi -i "sine=frequency=$frequency:duration=$duration" -nodisp -autoexit &> /dev/null
 }
 
 e=1
 while [ $e -le $EPOCHS ]; do
     echo "Epoch: $e"
+    e=$((e+1))
 
     # START SEQUENCE
     play fast_c
@@ -58,12 +72,13 @@ while [ $e -le $EPOCHS ]; do
     # INTENSE BREATHING CYCLES
     c=1
     while [ $c -le $CYCLES ]; do
-        echo "inhale"
+        echo "inhale ($c)"
         play h
-        echo "exhale"
+        echo "exhale ($c)"
         [ $c -eq $CYCLES ] \
             && play e \
             || play c
+        c=$((c+1))
     done
 
     # LONG HOLD
