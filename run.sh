@@ -112,7 +112,7 @@ play(){
         # }}}
     esac
     [ ! -z $file ] \
-        && ffplay -nodisp -autoexit $file &> /dev/null \
+        && ffplay -nodisp -autoexit $file  \
         || ffplay -f lavfi -i "sine=frequency=$frequency:duration=$duration" -nodisp -autoexit &> /dev/null
 }
 
