@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # SETTINGS
-EPOCHS=2
-CYCLES=3
+EPOCHS=4
+CYCLES=30
 
-HOLD_AFTER_EXHALE=12
-HOLD_AFTER_INHALE=5
+HOLD_AFTER_EXHALE=120
+HOLD_AFTER_INHALE=15
 
 trap 'echo ...EXITING ; exit' SIGINT
 
@@ -111,7 +111,6 @@ play(){
             ;;
         # }}}
     esac
-    echo "doing" $frequency $duration
     [ ! -z $file ] \
         && ffplay -nodisp -autoexit $file &> /dev/null \
         || ffplay -f lavfi -i "sine=frequency=$frequency:duration=$duration" -nodisp -autoexit &> /dev/null
@@ -131,11 +130,11 @@ while [ $e -le $EPOCHS ]; do
     c=1
     while [ $c -le $CYCLES ]; do
         echo "inhale ($c)"
-        play h3
+        play h
         echo "exhale ($c)"
         [ $c -eq $CYCLES ] \
             && play a3 \
-            || play c3
+            || play c
         c=$((c+1))
     done
 
