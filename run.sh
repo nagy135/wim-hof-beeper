@@ -4,7 +4,9 @@
 EPOCHS=4
 CYCLES=30
 
+HOLD_AFTER_EXHALE_FIRST=90
 HOLD_AFTER_EXHALE=120
+
 HOLD_AFTER_INHALE=15
 
 trap 'echo ...EXITING ; exit' SIGINT
@@ -133,8 +135,8 @@ while [ $e -le $EPOCHS ]; do
         play h
         echo "exhale ($c)"
         [ $c -eq $CYCLES ] \
-            && play a3 \
-            || play c
+            && play a3 2 \
+            || play c 1.5
         c=$((c+1))
     done
 
@@ -143,7 +145,10 @@ while [ $e -le $EPOCHS ]; do
         play meditation_ending
     else
         echo "hold"
-        sleep $HOLD_AFTER_EXHALE
+
+        [ $e -eq 1 ] && \
+            sleep $HOLD_AFTER_EXHALE_FIRST || \
+            sleep $HOLD_AFTER_EXHALE
 
         echo "inhale deeply"
         play g3 2
