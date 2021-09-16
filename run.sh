@@ -5,7 +5,7 @@ EPOCHS=4
 CYCLES=30
 
 HOLD_AFTER_EXHALE_FIRST=90
-HOLD_AFTER_EXHALE=120
+HOLD_AFTER_EXHALE=180
 
 HOLD_AFTER_INHALE=15
 
@@ -133,10 +133,12 @@ while [ $e -le $EPOCHS ]; do
     while [ $c -le $CYCLES ]; do
         echo "inhale ($c)"
         play h
+
         echo "exhale ($c)"
         [ $c -eq $CYCLES ] \
             && play a3 2 \
-            || play c 1.5
+            || ( [ $c -eq $((CYCLES-5)) ] && ( play e 0.5 ; play c 1 ) || play c 1.5 )
+
         c=$((c+1))
     done
 
