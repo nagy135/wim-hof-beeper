@@ -127,6 +127,9 @@ while [ $e -le $EPOCHS ]; do
     play h5 0.5
     play a5 0.5
     play g5 0.5
+    play h5 0.5
+    play a5 0.5
+    play g5 0.5
 
     # INTENSE BREATHING CYCLES
     c=1
