@@ -118,15 +118,17 @@ play(){
         || ffplay -f lavfi -i "sine=frequency=$frequency:duration=$duration" -nodisp -autoexit &> /dev/null
 }
 
+echo "Startup"
+play h5 0.5
+play a5 0.5
+play g5 0.5
+
 e=1
 while [ $e -le $EPOCHS ]; do
     echo "Epoch: $e"
     e=$((e+1))
 
-    # START SEQUENCE
-    play h5 0.5
-    play a5 0.5
-    play g5 0.5
+    # EPOCH START SEQUENCE
     play h5 0.5
     play a5 0.5
     play g5 0.5
