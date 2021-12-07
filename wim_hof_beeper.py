@@ -1,4 +1,3 @@
-import asyncio
 from pydub import AudioSegment
 from pydub.playback import play
 from time import sleep
