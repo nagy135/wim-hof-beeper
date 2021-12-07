@@ -13,8 +13,6 @@ Script contains commented-out oneliner to do so.
 git clone https://github.com/nagy135/wim-hof-beeper
 cd wim-hof-beeper
 chmod +x wim_hof_beeper
-./wim_hof_beeper.sh -l 1
-
 ```
 
 ## Usage
