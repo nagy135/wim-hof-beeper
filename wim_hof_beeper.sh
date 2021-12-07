@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# create new sound of specified sine frequency
+# ffmpeg -f lavfi -i "sine=frequency=1027:duration=1" c.mp3
+
 RED=$'\e[1;31m'
 END=$'\e[0m'
 
