@@ -1,15 +1,17 @@
 #!/bin/bash
 
-# SETTINGS
-EPOCHS=4
-CYCLES=30
-
-HOLD_AFTER_EXHALE_FIRST=90
-HOLD_AFTER_EXHALE=180
-
-HOLD_AFTER_INHALE=15
+RED=$'\e[1;31m'
+END=$'\e[0m'
 
 trap 'echo ...EXITING ; exit' SIGINT
+
+usage(){
+    echo "Usage: wim_hof_beeper OPTIONS"
+    echo "Beeps to guide you through Wim Hof's breathing technique"
+    echo ""
+    echo "Options:"
+    echo "  -l, --level                Specify level of difficulty (1-3)"
+}
 
 play(){
     file=
@@ -118,7 +120,64 @@ play(){
         || ffplay -f lavfi -i "sine=frequency=$frequency:duration=$duration" -nodisp -autoexit &> /dev/null
 }
 
-echo "Startup"
+# ARG PARSING {{{
+
+[ $# -lt 1 ] && usage && exit
+
+LEVEL=1
+
+case $1 in
+    --help | -h)
+        usage && exit
+        ;;
+    --level | -l)
+        shift
+        [ -z $1 ] \
+            echo "${RED}Specify level!${END}" \
+            && usage \
+            && exit 2
+        LEVEL="$1"
+        ;;
+    *)
+        echo "${RED}Unknown option!${END}"
+        usage
+        exit 1
+        ;;
+esac
+
+# }}}
+
+# SETTING VARIABLES BASED ON LEVEL {{{
+
+CYCLES=30
+HOLD_AFTER_INHALE=15
+
+case $LEVEL in
+    1)
+        EPOCHS=3
+        HOLD_AFTER_EXHALE_FIRST=90
+        HOLD_AFTER_EXHALE=120
+        ;;
+    2)
+        EPOCHS=4
+        HOLD_AFTER_EXHALE_FIRST=120
+        HOLD_AFTER_EXHALE=180
+        ;;
+    3)
+        EPOCHS=4
+        HOLD_AFTER_EXHALE_FIRST=120
+        HOLD_AFTER_EXHALE=200
+        ;;
+    *)
+        echo "${RED}Unknown level!${END}"
+        usage
+        exit 3
+        ;;
+esac
+
+# }}}
+
+echo "Startup sequence"
 play h5 0.5
 play a5 0.5
 play g5 0.5
