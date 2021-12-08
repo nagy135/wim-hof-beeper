@@ -136,7 +136,7 @@ case $1 in
     --level | -l)
         shift
         [ -z $1 ] \
-            echo "${RED}Specify level!${END}" \
+            && echo "${RED}Specify level!${END}" \
             && usage \
             && exit 2
         LEVEL="$1"
