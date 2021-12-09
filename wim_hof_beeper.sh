@@ -14,6 +14,7 @@ usage(){
     echo ""
     echo "Options:"
     echo "  -l, --level                Specify level of difficulty (1-3)"
+    echo "  -s, --single               Single run with just meditation song finish (same as -l 0)"
 }
 
 
@@ -153,6 +154,9 @@ case $1 in
             && exit 2
         LEVEL="$1"
         ;;
+    --single | -s)
+        LEVEL=0
+        ;;
     *)
         echo "${RED}Unknown option!${END}"
         usage
@@ -168,6 +172,9 @@ CYCLES=30
 HOLD_AFTER_INHALE=15
 
 case $LEVEL in
+    0)
+        EPOCHS=1
+        ;;
     1)
         EPOCHS=3
         HOLD_AFTER_EXHALE_FIRST=90
