@@ -6,7 +6,7 @@
 RED=$'\e[1;31m'
 END=$'\e[0m'
 
-trap 'echo ...EXITING ; exit' SIGINT
+trap trap_handler SIGINT
 
 usage(){
     echo "Usage: wim_hof_beeper OPTIONS"
@@ -14,6 +14,18 @@ usage(){
     echo ""
     echo "Options:"
     echo "  -l, --level                Specify level of difficulty (1-3)"
+}
+
+
+trap_handler(){
+    echo '...EXITING'
+
+    [ ! $HOLD_TIMESTAMP -eq 0 ] \
+        && NOW=$(date +%s) \
+        && echo 'STOPPED MID-HOLD!' \
+        && echo 'hold length:' $((NOW-HOLD_TIMESTAMP)) 'seconds'
+
+    exit
 }
 
 play(){
@@ -180,6 +192,8 @@ esac
 
 # }}}
 
+HOLD_TIMESTAMP=0
+
 echo "Startup sequence"
 play h5 0.5
 play a5 0.5
@@ -210,6 +224,7 @@ while [ $e -le $EPOCHS ]; do
     done
 
     # LONG HOLD
+    HOLD_TIMESTAMP=$(date +%s)
     if [ $e -eq $((EPOCHS+1)) ]; then
         play meditation_ending
     else
@@ -225,5 +240,6 @@ while [ $e -le $EPOCHS ]; do
         play f 0.5
         play f 0.5
     fi
+    HOLD_TIMESTAMP=0
 
 done
